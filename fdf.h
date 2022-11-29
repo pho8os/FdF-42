@@ -6,7 +6,7 @@
 /*   By: absaid <absaid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 08:34:16 by absaid            #+#    #+#             */
-/*   Updated: 2022/11/28 15:33:52 by absaid           ###   ########.fr       */
+/*   Updated: 2022/11/29 10:08:50 by absaid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_map
 	struct s_map *next;
 } t_map;
 
-
+void	ft_mapclear(t_map **lst);
 void map_push_back(t_map **head, int **coord, size_t len);
 int hextodec(char *str);
 
