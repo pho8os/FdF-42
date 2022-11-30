@@ -25,22 +25,17 @@ t_map *parsing(int fd)
 			coord[0] = ft_atoi(info[0]);
 			coord[1] = 0xffffff;
 			if (info[1])
+			{
 				coord[1] = hextodec(info[1]);
+				if(coord[1] == 0)
+					coord[1] = 0xffffff;
+			}	
 			coords[i] = coord;
 		}
-		// int j = 0;
-		// printf("{");
-		// while (j < len)
-		// {
-		// 	printf("[%d, %d], ", coords[j][0], coords[j][1]);
-		// 	j++;
-		// }
-		// printf("}\n");
 		if (!initial && head)
 			initial = head;
 		if (initial && initial->len != (size_t)len)
 			return (NULL);
-
 		map_push_back(&head, coords, len);
 	}
 	return (head);
@@ -71,7 +66,6 @@ int ***get_coords(t_map *lst)
 	coord = ft_calloc(len + 1,sizeof(int *));
 	if(!coord)
 		return(NULL);
-	printf("------len  = %d----\n", len);
 	while(++i < len  && tmp)
 	{
 		coord[i] = tmp->coord;

@@ -22,7 +22,7 @@ lib-ft/libft.a:
 	$(CC) $(CFLAGS) -c $<
 
 $(NAME):$(OBJS) lib-ft/libft.a
-	$(CC) $(OBJS) $(CFLAGS) -o $(NAME) lib-ft/libft.a
+	$(CC) $(OBJS) $(CFLAGS) -lmlx -framework OpenGL -framework AppKit -o $(NAME) lib-ft/libft.a
 
 clean:
 	rm -f $(OBJS) $(BONUSOBJS)
