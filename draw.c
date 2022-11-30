@@ -1,17 +1,7 @@
 #include "fdf.h"
 
-typedef struct s_point
-{
-	int x;
-	int y;
-} t_point;
 
-typedef struct s_data
-{
-	void *mlx;
-	void *win;
-	int w, h;
-} t_data;
+
 
 void draw_line_(t_data *data, int x0, int y0, int x1, int y1)
 {
@@ -25,7 +15,6 @@ void draw_line_(t_data *data, int x0, int y0, int x1, int y1)
 	x = x0;
 	y = y0;
 
-	// plot_point(x, y);
 	mlx_pixel_put(data->mlx, data->win, x, y, 0xff10fa);
 
 	while (x < x1)
@@ -44,12 +33,6 @@ void draw_line_(t_data *data, int x0, int y0, int x1, int y1)
 		mlx_pixel_put(data->mlx, data->win, x, y, 0xff10fa);
 	}
 }
-
-void draw_line(t_data *data, t_point *start, t_point *end)
-{
-	draw_line_(data, start->x, start->y, end->x, end->y);
-}
-
 int main()
 {
 
@@ -60,15 +43,16 @@ int main()
 	data.h = 600;
 	data.win = mlx_new_window(data.mlx, data.w, data.h, "Awbx");
 
-	t_point p1 = {0, 0};
-	t_point p2 = {600, 0};
-	int i = 1;
-	while (i < data.w)
-	{
-		draw_line(&data, &p1, &p2);
-		p1.y += 1;
-		p2.y += 1;
-		i++;
-	}
-	mlx_loop(data.mlx);
+	t_point p1 = {5, 87,80};
+	t_point p2 = {250, 300,10};
+	// draw_line_(&data, p1.x, p1.y ,p2.x,p2.y);
+
+	p1 = get_x_y(&p1);
+	p2 = get_x_y(&p2);
+
+	printf("%d--%d\n",p1.x,p1.y);
+	printf("%d--%d",p2.x,p2.y);
+	draw_line_(&data, p1.x , p1.y , p2.x , p2.y);
+
+	 mlx_loop(data.mlx);
 }
