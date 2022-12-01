@@ -16,7 +16,6 @@ void draw_line_(t_data *data, int x0, int y0, int x1, int y1)
 	y = y0;
 
 	mlx_pixel_put(data->mlx, data->win, x, y, 0xff10fa);
-
 	while (x < x1)
 	{
 		if (d <= 0)
