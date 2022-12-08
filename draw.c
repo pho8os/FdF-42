@@ -1,37 +1,44 @@
 #include "fdf.h"
 
-
-
-
 void draw_line_(t_data *data, int x0, int y0, int x1, int y1)
 {
-	int dy, dx, incrE, incrNE, d, x, y;
+	t_draw base;
 
-	dx = x1 - x0;
-	dy = y1 - y0;
-	d = 2 * dy - dx;
-	incrE = 2 * dy;
-	incrNE = 2 * (dy - dx);
-	x = x0;
-	y = y0;
-
-	mlx_pixel_put(data->mlx, data->win, x, y, 0xff10fa);
-	while (x < x1)
+	base.dx = abs(x1 - x0);
+	base.dy = -abs(y1 - y0);
+	base.sx = 1 -  2 * (x0 > x1);
+	base.sy = 1 - 2 * (y0 > y1);	
+	base.d1 = base.dx + base.dy;
+	base.d2 = 0;
+	while (1)
 	{
-		if (d <= 0)
+		if ((x0 > 0 && x0 < 600) && (y0 > 0 && y0 < 600))
+			mlx_pixel_put(data->mlx, data->win, x0, y0, 0xff10fa);
+		if (x0 == x1 && y0 == y1)
+			break;
+		base.d2 = 2 * base.d1;
+		if(base.d2 >= base.dy)
 		{
-			d += incrE;
-			x++;
+			// if (x0 == x1)
+			// 	break;
+			base.d1 += base.dy;
+			x0 += base.sx;
 		}
-		else
+		if (base.d2 <= base.dx)
 		{
-			d += incrNE;
-			x++;
-			y++;
+			// if (y0 == y1)
+			// 	break;
+			base.d1 += base.dx;
+			y0 += base.sy;
 		}
-		mlx_pixel_put(data->mlx, data->win, x, y, 0xff10fa);
 	}
 }
+int	center(int a)
+{
+
+	return (a);
+}
+
 int main()
 {
 
@@ -40,18 +47,13 @@ int main()
 	data.mlx = mlx_init();
 	data.w = 600;
 	data.h = 600;
-	data.win = mlx_new_window(data.mlx, data.w, data.h, "Awbx");
+	data.win = mlx_new_window(data.mlx, data.w, data.h, "phobos");
 
-	t_point p1 = {5, 87,80};
-	t_point p2 = {250, 300,10};
-	// draw_line_(&data, p1.x, p1.y ,p2.x,p2.y);
-
-	p1 = get_x_y(&p1);
-	p2 = get_x_y(&p2);
-
-	printf("%d--%d\n",p1.x,p1.y);
-	printf("%d--%d",p2.x,p2.y);
-	draw_line_(&data, p1.x , p1.y , p2.x , p2.y);
+	// draw_line_(&data, 10 , 90 ,100 , 90);
+	// draw_line_(&data, 100 , 90 ,100 , 180);
+	// draw_line_(&data, 10 , 180 ,100 , 180);
+	// draw_line_(&data, 10 , 180 ,10 , 90);
+	draw_line_(&data, 40 , 180 ,20 , 90);
 
 	 mlx_loop(data.mlx);
 }

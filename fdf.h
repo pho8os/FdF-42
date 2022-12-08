@@ -6,7 +6,7 @@
 /*   By: absaid <absaid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 08:34:16 by absaid            #+#    #+#             */
-/*   Updated: 2022/11/30 17:36:57 by absaid           ###   ########.fr       */
+/*   Updated: 2022/12/07 22:12:19 by absaid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,15 @@ typedef struct s_point
 	int y;
 	int z;
 } t_point;
+typedef struct s_draw
+{
+	int dy;
+	int dx;
+	int d1;
+	int d2;
+	int sx;
+	int sy;
+} t_draw;
 
 typedef struct s_map
 {

@@ -4,13 +4,15 @@
 
 t_map *parsing(int fd)
 {
-	char *line = 0;
+	char *line;
 
 	t_map *head = NULL;
 	t_map *initial = NULL;
-	while ((line = get_next_line(fd)))
+	line = get_next_line(fd);
+	if(!line)
+		return(NULL);
+	while (line)
 	{
-		// printf("%s", line);
 		int len = 0;
 		char **info;
 		char **points = ft_split(line,32);
@@ -37,12 +39,14 @@ t_map *parsing(int fd)
 		if (initial && initial->len != (size_t)len)
 			return (NULL);
 		map_push_back(&head, coords, len);
+		free(line);
+		line = get_next_line(fd);
 	}
 	return (head);
 }
-int ft_mapsize(t_map *lst)
+int	ft_mapsize(t_map *lst)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (lst)
@@ -54,26 +58,25 @@ int ft_mapsize(t_map *lst)
 }
 int ***get_coords(t_map *lst)
 {
-	int ***coord;
-	t_map *tmp;
-	int i;
-	int len;
+	int		***coord;
+	t_map	*tmp;
+	int		i;
+	int		len;
 
 	tmp = lst;
 	len = ft_mapsize(tmp);
 	i = -1;
 	tmp = lst;
 	coord = ft_calloc(len + 1,sizeof(int *));
-	if(!coord)
-		return(NULL);
-	while(++i < len  && tmp)
+	if (!coord)
+		return (NULL);
+	while (++i < len  && tmp)
 	{
 		coord[i] = tmp->coord;
 		tmp = tmp->next;
 	}
-	puts("here");
 	ft_mapclear(&lst);
-	return(coord);
+	return (coord);
 }
 
 int main(int ac, char **av)
