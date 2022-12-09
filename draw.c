@@ -45,15 +45,15 @@ int main()
 	t_data data;
 
 	data.mlx = mlx_init();
-	data.w = 600;
-	data.h = 600;
+	data.w = 1500;
+	data.h = 1000;
 	data.win = mlx_new_window(data.mlx, data.w, data.h, "phobos");
 
-	// draw_line_(&data, 10 , 90 ,100 , 90);
-	// draw_line_(&data, 100 , 90 ,100 , 180);
-	// draw_line_(&data, 10 , 180 ,100 , 180);
-	// draw_line_(&data, 10 , 180 ,10 , 90);
-	draw_line_(&data, 40 , 180 ,20 , 90);
+	draw_line_(&data, 10 , 90 ,100 , 90);
+	draw_line_(&data, 100 , 90 ,100 , 180);
+	draw_line_(&data, 10 , 180 ,100 , 180);
+	draw_line_(&data, 10 , 180 ,10 , 90);
+	// draw_line_(&data, 40 , 180 ,20 , 90);
 
 	 mlx_loop(data.mlx);
 }
