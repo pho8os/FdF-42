@@ -12,7 +12,7 @@ void draw_line_(t_data *data, t_point p1, t_point p2)
 	base.d2 = 0;
 	while (1)
 	{
-		if ((p1.x > 0 && p1.x < 600) && (p1.y > 0 && p1.y < 600))
+		if ((p1.x > 0 && p1.x < data->w) && (p1.y > 0 && p1.y < data->h))
 			mlx_pixel_put(data->mlx, data->win, p1.x, p1.y, 0xff10fa);
 		if (p1.x == p2.x && p1.y == p2.y)
 			break;
