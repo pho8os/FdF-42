@@ -40,8 +40,8 @@ int	center(int a)
 }
 void update(t_point *p)
 {
-	p->x += p->x*100 + 100;
-	p->y += p->y*100+ 100;
+	p->x += p->x*20 + 500;
+	p->y += p->y*20+ 100;
 
 }
 int main(int ac, char **av)
@@ -108,6 +108,9 @@ int main(int ac, char **av)
 				update(&p1);
 				update(&p2);
 				update(&p3);
+				p1 = iso(p1);
+				p2 = iso(p2);
+				p3 = iso(p3);
 				if(coord[i][j + 1])
 					draw_line_(&data,p1,p2);
 				if(coord[i + 1])
