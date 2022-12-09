@@ -79,26 +79,26 @@ int ***get_coords(t_map *lst)
 	return (coord);
 }
 
-int main(int ac, char **av)
-{
-	if (ac > 1)
-	{
-		char *filename = av[1];
-		int fd = open(filename, O_RDONLY);
-		if (fd < 0)
-			return (fprintf(stderr, "%s\n", strerror(errno)), 1);
-		t_map *cords = parsing(fd);
-		printf("\n------%d------\n\n", ft_mapsize(cords));
-		int ***coord = get_coords(cords);
-		int i = -1,j;
-		while(coord[++i])
-		{
-			j = -1;
-			while(coord[i][++j])
-			{
-				printf("[%d,%d]--",coord[i][j][0],coord[i][j][1]);
-			}
-			printf("\n");
-		}
-	}
-}
+// int main(int ac, char **av)
+// {
+// 	if (ac > 1)
+// 	{
+// 		char *filename = av[1];
+// 		int fd = open(filename, O_RDONLY);
+// 		if (fd < 0)
+// 			return (fprintf(stderr, "%s\n", strerror(errno)), 1);
+// 		t_map *cords = parsing(fd);
+// 		printf("\n------%d------\n\n", ft_mapsize(cords));
+// 		int ***coord = get_coords(cords);
+// 		int i = -1,j;
+// 		while(coord[++i])
+// 		{
+// 			j = -1;
+// 			while(coord[i][++j])
+// 			{
+// 				printf("[%d,%d]--",coord[i][j][0],coord[i][j][1]);
+// 			}
+// 			printf("\n");
+// 		}
+// 	}
+// }
