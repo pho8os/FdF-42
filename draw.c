@@ -10,6 +10,7 @@ void draw_line_(t_data *data, t_point p1, t_point p2)
 	base.sy = 1 - 2 * (p1.y > p2.y);
 	base.d1 = base.dx + base.dy;
 	base.d2 = 0;
+	// printf("---%d---",p2.c);
 	while (1)
 	{
 		if ((p1.x > 0 && p1.x < data->w) && (p1.y > 0 && p1.y < data->h))
@@ -31,16 +32,17 @@ void draw_line_(t_data *data, t_point p1, t_point p2)
 			base.d1 += base.dx;
 			p1.y += base.sy;
 		}
-		if (p1.c > p2.c)
-			p1.c--;
-		if (p1.c < p2.c)
-			p1.c++;
+		if (p1.c >=p2.c)
+			p1.c -= 10;
+		if (p1.c <= p2.c)
+			p1.c += 10;
 	}
 }
-int center(int a)
+void  center(t_point *p)
 {
-
-	return (a);
+	p->x += 750;
+	p->y += 500;
+	
 }
 void update(t_point *p, int ***coord)
 {
@@ -65,8 +67,6 @@ void update(t_point *p, int ***coord)
 	p->y *= dist;
 	p->x -= (j * dist) / 2;
 	p->y -= (i * dist) / 2;
-	p->x += 750;
-	p->y += 500;
 }
 int main(int ac, char **av)
 {
@@ -118,6 +118,9 @@ int main(int ac, char **av)
 				p1 = iso(p1);
 				p2 = iso(p2);
 				p3 = iso(p3);
+				center(&p1);
+				center(&p2);
+				center(&p3);
 				if (coord[i][j + 1])
 					draw_line_(&data, p1, p2);
 				if (coord[i + 1])
