@@ -6,7 +6,7 @@
 /*   By: absaid <absaid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 08:34:16 by absaid            #+#    #+#             */
-/*   Updated: 2022/12/09 18:54:52 by absaid           ###   ########.fr       */
+/*   Updated: 2022/12/10 01:07:18 by absaid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_map
 	struct s_map *next;
 } t_map;
 
+t_point rot_x(t_point p, int angle);
 t_point	iso(t_point p);
 int	ft_mapsize(t_map *lst);
 int ***get_coords(t_map *lst);
