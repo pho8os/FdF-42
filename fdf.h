@@ -6,7 +6,7 @@
 /*   By: absaid <absaid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 08:34:16 by absaid            #+#    #+#             */
-/*   Updated: 2022/12/11 08:51:42 by absaid           ###   ########.fr       */
+/*   Updated: 2022/12/11 09:44:40 by absaid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct s_draw
 	int sy;
 } t_draw;
 
-
+int	ft_mapsize(t_map *lst);
 t_point rot_x(t_point p, double angle);
 t_point rot_y(t_point p, double angle);
 t_point rot_z(t_point p, double angle);
