@@ -33,9 +33,9 @@ void draw_line_(t_data *data, t_point p1, t_point p2)
 			p1.y += base.sy;
 		}
 		if (p1.c > p2.c)
-			p1.c -= 10;
+			p1.c -= 20;
 		if (p1.c < p2.c)
-			p1.c += 10;
+			p1.c += 20;
 	}
 }
 void  center(t_point *p)
