@@ -14,7 +14,7 @@ void draw_line_(t_data *data, t_point p1, t_point p2)
 	while (1)
 	{
 		if ((p1.x > 0 && p1.x < data->w) && (p1.y > 0 && p1.y < data->h))
-			mlx_pixel_put(data->mlx, data->win, p1.x, p1.y, p1.c);
+			mlx_pixel_put(data->mlx, data->win, p1.x, p1.y, 0xffffff);
 		if (p1.x == p2.x && p1.y == p2.y)
 			break;
 		base.d2 = 2 * base.d1;
@@ -60,7 +60,7 @@ void update(t_point *p, int ***coord)
 	}
 	dw = round(sqrt(pow(1500, 2) + pow(1000, 2)));
 	dm = round(sqrt(pow(j, 2) + pow(i, 2)));
-	dist = round(((dw * 30) / 100) / dm);
+	dist = round(((dw * 50) / 100) / dm);
 	if (dist < 2)
 		dist = 2;
 	p->x *= dist;
@@ -115,9 +115,9 @@ int main(int ac, char **av)
 				update(&p1, coord);
 				update(&p2, coord);
 				update(&p3, coord);
-				p1 = iso(p1);
-				p2 = iso(p2);
-				p3 = iso(p3);
+				p1 = rot_z(p1, 90 * 3.141592653589793238 / 180);
+				p2 = rot_z(p2, 90 * 3.141592653589793238 / 180);
+				p3 = rot_z(p3, 90 * 3.141592653589793238 / 180);
 				center(&p1);
 				center(&p2);
 				center(&p3);
