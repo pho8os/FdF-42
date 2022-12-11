@@ -2,47 +2,70 @@
 #include <string.h>
 #include <errno.h>
 
+void struct_init(t_pars **structo)
+{
+	(*structo)->head = NULL;
+	(*structo)->initial = NULL;
+}
+
+int *chartoint(char *str)
+{
+	char **info;
+	int *ret;
+
+	info = ft_split(str,',');
+	ret = ft_calloc(2,sizeof(int));
+	ret[0] = ft_atoi(info[0]);
+	ret[1] = 0xffffff;
+	if (info[1])
+	{
+		ret[1] = hextodec(info[1]);
+		if(ret[1] == 0)
+			ret[1] = 0xffffff;
+	}
+	while(*info)
+		free(*info++);
+	free(str);
+	return(ret);
+}
+int **line_to_cords(char *line , int *len)
+{
+	char **points;
+	int **coords;
+	int i;
+
+	i = -1;
+	points = ft_split(line, 32);
+	while (points[*len])
+			(*len)++;
+	coords = ft_calloc(*len + 1, sizeof(int *));
+	while (++i < *len)
+		coords[i] = chartoint(points[i]);
+	free(points);
+	return(coords);
+}
 t_map *parsing(int fd)
 {
-	char *line;
+	t_pars *ptr;
 
-	t_map *head = NULL;
-	t_map *initial = NULL;
-	line = get_next_line(fd);
-	if(!line)
-		return(NULL);
-	while (line)
+	struct_init(&ptr);
+	ptr->line = get_next_line(fd);
+	if(!ptr->line)
+		return (NULL);
+	while (ptr->line)
 	{
-		int len = 0;
-		char **info;
-		char **points = ft_split(line,32);
-		while (points[len])
-			len++;
-		int **coords = ft_calloc(len + 1, sizeof(int *));
-		int i = -1;
-		while (++i < len)
-		{
-			info = ft_split(points[i], ',');
-			int *coord = ft_calloc(2, sizeof(int));
-			coord[0] = ft_atoi(info[0]);
-			coord[1] = 0xffffff;
-			if (info[1])
-			{
-				coord[1] = hextodec(info[1]);
-				if(coord[1] == 0)
-					coord[1] = 0xffffff;
-			}	
-			coords[i] = coord;
-		}
-		if (!initial && head)
-			initial = head;
-		if (initial && initial->len != (size_t)len)
+		ptr->len = 0;
+		ptr->coords = line_to_cords(ptr->line,&ptr->len);
+		if (!ptr->initial && ptr->head)
+			ptr->initial = ptr->head;
+		if (ptr->initial && ptr->initial->len != (size_t)ptr->len)
 			return (NULL);
-		map_push_back(&head, coords, len);
-		free(line);
-		line = get_next_line(fd);
+		map_push_back(&ptr->head, ptr->coords, ptr->len);
+		free(ptr->line);
+		ptr->line = get_next_line(fd);
 	}
-	return (head);
+	free(ptr->line);
+	return (ptr->head);
 }
 int	ft_mapsize(t_map *lst)
 {
@@ -78,8 +101,7 @@ int ***get_coords(t_map *lst)
 	ft_mapclear(&lst);
 	return (coord);
 }
-
-// int main(int ac, char **av)
+// int main(int ac ,char **av)
 // {
 // 	if (ac > 1)
 // 	{
@@ -88,17 +110,9 @@ int ***get_coords(t_map *lst)
 // 		if (fd < 0)
 // 			return (fprintf(stderr, "%s\n", strerror(errno)), 1);
 // 		t_map *cords = parsing(fd);
-// 		printf("\n------%d------\n\n", ft_mapsize(cords));
 // 		int ***coord = get_coords(cords);
-// 		int i = -1,j;
-// 		while(coord[++i])
-// 		{
-// 			j = -1;
-// 			while(coord[i][++j])
-// 			{
-// 				printf("[%d,%d]--",coord[i][j][0],coord[i][j][1]);
-// 			}
-// 			printf("\n");
-// 		}
+// 		// while(1);
+
 // 	}
 // }
+	

@@ -6,7 +6,7 @@
 /*   By: absaid <absaid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 08:34:16 by absaid            #+#    #+#             */
-/*   Updated: 2022/12/11 03:24:47 by absaid           ###   ########.fr       */
+/*   Updated: 2022/12/11 08:51:42 by absaid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,22 @@ typedef struct s_data
 	int w, h;
 } t_data;
 
+typedef struct s_map
+{
+	int **coord;
+	size_t len;
+	struct s_map *next;
+} t_map;
+
+typedef struct s_pars
+{
+	char *line;
+	t_map *head;
+	t_map *initial;
+	int len;
+	int **coords;
+} t_pars;
+
 typedef struct s_point
 {
 	int x;
@@ -48,12 +64,6 @@ typedef struct s_draw
 	int sy;
 } t_draw;
 
-typedef struct s_map
-{
-	int **coord;
-	size_t len;
-	struct s_map *next;
-} t_map;
 
 t_point rot_x(t_point p, double angle);
 t_point rot_y(t_point p, double angle);
