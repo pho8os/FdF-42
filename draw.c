@@ -10,7 +10,7 @@ void draw_line_(t_data *data, t_point p1, t_point p2)
 	base.sy = 1 - 2 * (p1.y > p2.y);
 	base.d1 = base.dx + base.dy;
 	base.d2 = 0;
-	// printf("---%d---",p2.c);
+
 	while (1)
 	{
 		if ((p1.x > 0 && p1.x < data->w) && (p1.y > 0 && p1.y < data->h))
@@ -32,9 +32,9 @@ void draw_line_(t_data *data, t_point p1, t_point p2)
 			base.d1 += base.dx;
 			p1.y += base.sy;
 		}
-		if (p1.c >=p2.c)
+		if (p1.c > p2.c)
 			p1.c -= 10;
-		if (p1.c <= p2.c)
+		if (p1.c < p2.c)
 			p1.c += 10;
 	}
 }
