@@ -6,7 +6,7 @@
 /*   By: absaid <absaid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 09:41:50 by absaid            #+#    #+#             */
-/*   Updated: 2022/12/11 09:47:11 by absaid           ###   ########.fr       */
+/*   Updated: 2022/12/12 02:28:54 by absaid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 #include <string.h>
 #include <errno.h>
 
-void	struct_init(t_pars **structo)
+void	struct_init(t_pars *structo)
 {
-	(*structo)->head = NULL;
-	(*structo)->initial = NULL;
+	(structo)->head = NULL;
+	(structo)->initial = NULL;
 }
 
 int	*chartoint(char *str)
@@ -57,25 +57,25 @@ int	**line_to_cords(char *line, int *len)
 
 t_map	*parsing(int fd)
 {
-	t_pars	*ptr;
+	t_pars	ptr;
 
 	struct_init(&ptr);
-	ptr->line = get_next_line(fd);
-	if (!ptr->line)
+	ptr.line = get_next_line(fd);
+	if (!ptr.line)
 		return (NULL);
-	while (ptr->line)
+	while (ptr.line)
 	{
-		ptr->len = 0;
-		ptr->coords = line_to_cords(ptr->line, &ptr->len);
-		if (!ptr->initial && ptr->head)
-			ptr->initial = ptr->head;
-		if (ptr->initial && ptr->initial->len != (size_t)ptr->len)
+		ptr.len = 0;
+		ptr.coords = line_to_cords(ptr.line, &ptr.len);
+		if (!ptr.initial && ptr.head)
+			ptr.initial = ptr.head;
+		if (ptr.initial && ptr.initial->len != (size_t)ptr.len)
 			return (NULL);
-		map_push_back(&ptr->head, ptr->coords, ptr->len);
-		free(ptr->line);
-		ptr->line = get_next_line(fd);
+		map_push_back(&ptr.head, ptr.coords, ptr.len);
+		free(ptr.line);
+		ptr.line = get_next_line(fd);
 	}
-	return (free(ptr->line), ptr->head);
+	return (free(ptr.line), ptr.head);
 }
 
 int	***get_coords(t_map *lst)

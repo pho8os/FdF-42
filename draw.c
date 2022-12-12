@@ -8,7 +8,7 @@ void draw_line_(t_data *data, t_point p1, t_point p2)
 	base.dy = -abs(p2.y - p1.y);
 	base.sx = 1 - 2 * (p1.x > p2.x);
 	base.sy = 1 - 2 * (p1.y > p2.y);
-	base.d1 = base.dx + base.dy;
+	base.d1 =   base.dx + base.dy;
 	base.d2 = 0;
 
 	while (1)
@@ -20,15 +20,11 @@ void draw_line_(t_data *data, t_point p1, t_point p2)
 		base.d2 = 2 * base.d1;
 		if (base.d2 >= base.dy)
 		{
-			// if (x0 == x1)
-			// 	break;
 			base.d1 += base.dy;
 			p1.x += base.sx;
 		}
 		if (base.d2 <= base.dx)
 		{
-			// if (y0 == y1)
-			// 	break;
 			base.d1 += base.dx;
 			p1.y += base.sy;
 		}
@@ -42,7 +38,7 @@ void  center(t_point *p)
 {
 	p->x += 750;
 	p->y += 500;
-	
+	 
 }
 void update(t_point *p, int ***coord)
 {
@@ -82,51 +78,11 @@ int main(int ac, char **av)
 		char *filename = av[1];
 		int fd = open(filename, O_RDONLY);
 		if (fd < 0)
-			return (fprintf(stderr, "%s\n", strerror(errno)), 1);
-		t_map *cords = parsing(fd);
-		int ***coord = get_coords(cords);
-		int i = -1, j;
-		while (coord[++i])
-		{
-			j = -1;
-			while (coord[i][++j])
-			{
-				t_point p1, p2, p3;
-				p1.x = j;
-				p1.y = i;
-				p1.c = coord[i][j][1];
-				p1.z = coord[i][j][0];
-
-				p2.x = j + 1;
-				p2.y = i;
-				if (coord[i][j + 1])
-				{
-					p2.c = coord[i][j + 1][1];
-					p2.z = coord[i][j + 1][0];
-				}
-
-				p3.x = j;
-				p3.y = i + 1;
-				if (coord[i + 1])
-				{
-					p3.c = coord[i + 1][j][1];
-					p3.z = coord[i + 1][j][0];
-				}
-				update(&p1, coord);
-				update(&p2, coord);
-				update(&p3, coord);
-				p1 = iso(p1);
-				p2 = iso(p2);
-				p3 = iso(p3);
-				center(&p1);
-				center(&p2);
-				center(&p3);
-				if (coord[i][j + 1])
-					draw_line_(&data, p1, p2);
-				if (coord[i + 1])
-					draw_line_(&data, p1, p3);
-			}
-		}
+			return (printf("wrong map"));
+		int ***coord = get_coords(parsing(fd));
+		if(!coord)
+			return (printf("wrong map"));
+		fdf(coord,&data);
 	}
 
 	mlx_loop(data.mlx);

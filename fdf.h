@@ -6,7 +6,7 @@
 /*   By: absaid <absaid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 08:34:16 by absaid            #+#    #+#             */
-/*   Updated: 2022/12/11 09:44:40 by absaid           ###   ########.fr       */
+/*   Updated: 2022/12/12 02:40:47 by absaid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@
 #include <math.h>
 #include "get_next_line.h"
 #include "lib-ft/libft.h"
+
+
+
+
 
 typedef struct s_data
 {
@@ -54,6 +58,16 @@ typedef struct s_point
 	int z;
 	int c;
 } t_point;
+
+typedef struct s_fdf
+{
+	int y;
+	int x;
+	t_point *p1;
+	t_point *p2;
+	t_point *p3;
+}	t_fdf;
+
 typedef struct s_draw
 {
 	int dy;
@@ -64,6 +78,10 @@ typedef struct s_draw
 	int sy;
 } t_draw;
 
+
+void  center(t_point *p);
+void update(t_point *p, int ***coord);
+void fdf(int ***coord, t_data *data);
 int	ft_mapsize(t_map *lst);
 t_point rot_x(t_point p, double angle);
 t_point rot_y(t_point p, double angle);
