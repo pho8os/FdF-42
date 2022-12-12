@@ -72,7 +72,7 @@ int main(int ac, char **av)
 	data.mlx = mlx_init();
 	data.w = 1500;
 	data.h = 1000;
-	data.win = mlx_new_window(data.mlx, data.w, data.h, "phobos");
+	data.win = mlx_new_window(data.mlx, data.w, data.h, "fdf");
 	if (ac > 1)
 	{
 		char *filename = av[1];
