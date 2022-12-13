@@ -2,73 +2,34 @@
 
 void draw_line_(t_data *data, t_point p1, t_point p2)
 {
-	t_draw base;
+	double dx;
+	double dy;
+	int i;
 
-	base.dx = p2.x - p1.x;
-	// base.dy = -abs(p2.y - p1.y);
-	// base.sx = 1 - 2 * (p1.x > p2.x);
-	// base.sy = 1 - 2 * (p1.y > p2.y);
-	// base.d1 =   base.dx + base.dy;
-	// base.d2 = 0;
-	base.dy = p2.y - p1.y;
-
-	// printf("Dx: %f | Dy: %f\n", base.dx, base.dy);
-	// printf("x1: %f | y1: %f\n", p1.x, p1.y);
-	// printf("x2: %f | y2: %f\n", p2.x, p2.y);
-	// printf("Ystep :%f | Xstep:%f\n", base.dy / fabs(base.dx), base.dx / fabs(base.dx));
-	//while(1);
-	int i = -1;
-	if(fabs(base.dx) > fabs(base.dy))
+	dx = p2.x - p1.x;
+	dy = p2.y - p1.y;
+	i = -1;
+	if(fabs(dx) > fabs(dy))
 	{
-		// printf("%f | %f\n", p1.x, p1.y);
-		while( ++i <= fabs(base.dx))
+		while( ++i <= fabs(dx))
 		{
-			my_mlx_pixel_put(data,p1.x, p1.y, p1.c);
-			p1.y += base.dy / fabs(base.dx);
-			p1.x += base.dx / fabs(base.dx);
+			my_mlx_pixel_put(data,p1.x, p1.y, p1.c -= 2);
+			p1.y += dy / fabs(dx);
+			p1.x += dx / fabs(dx);
 		}
-		// printf("%f | %f\n", p1.x, p1.y);
-		// while (1);
 	}
 	else
 	{
-		while( ++i <= fabs(base.dy))
+		while( ++i <= fabs(dy))
 		{
-			my_mlx_pixel_put(data,p1.x, p1.y, p1.c);
-			p1.x += base.dx / fabs(base.dy);
-			p1.y += base.dy / fabs(base.dy);
+			my_mlx_pixel_put(data,p1.x, p1.y, p1.c += 2);
+			p1.x += dx / fabs(dy);
+			p1.y += dy / fabs(dy);
 		}
 	}
-	// while (1)
-	// {
-	// 	if ((p1.x > 0 && p1.x < data->w) && (p1.y > 0 && p1.y < data->h))
-	// 		my_mlx_pixel_put(data,p1.x, p1.y, p1.c);
-	// 	if (p1.x == p2.x && p1.y == p2.y)
-	// 		break;
-	// 	base.d2 = 2 * base.d1;
-	// 	if (base.d2 >= base.dy)
-	// 	{
-	// 		base.d1 += base.dy;
-	// 		p1.x += base.sx;
-	// 	}
-	// 	if (base.d2 <= base.dx)
-	// 	{
-	// 		base.d1 += base.dx;
-	// 		p1.y += base.sy;
-	// 	}
-	// 	if(p1.c == p2.c || p1.c <= 240)
-	// 		p1.c = p2.c;
-	// 	else
-	// 		p1.c -= 20 * (p1.c > p2.c);
-	// }
 }
-void  center(t_point *p)
-{
-	p->x += 750;
-	p->y += 500;
-	 
-}
-void update(t_point *p, int y, int x)
+
+void update(t_point *p, int y, int x, int flag)
 {
 	int dw;
 	int dm;
@@ -83,6 +44,10 @@ void update(t_point *p, int y, int x)
 	p->y *= dist;
 	p->x -= (x * dist) / 2;
 	p->y -= (y * dist) / 2;
+	if(flag == 1)
+		*p = iso(*p);
+	p->x += 750;
+	p->y += 500;
 }
 
 int key_press(int key, t_data *data, int ***coord)

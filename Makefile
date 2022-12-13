@@ -4,7 +4,7 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
 
-SRCS = 
+SRCS = get_next_line.c get_next_line.utils.c fdf.c draw.c hextodec.c my_putpixel.c rotation.c parsing.c
 
 BONUS = 
 
