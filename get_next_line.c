@@ -6,7 +6,7 @@
 /*   By: absaid <absaid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 08:56:33 by absaid            #+#    #+#             */
-/*   Updated: 2022/11/28 19:49:50 by absaid           ###   ########.fr       */
+/*   Updated: 2022/12/13 10:23:28 by absaid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ char	*get_next_line(int fd)
 	char		*line;
 	static char	*hold;
 	char		*buffer;
-
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buffer = (char *)malloc(BUFFER_SIZE + 1);

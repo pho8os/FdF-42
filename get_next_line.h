@@ -6,7 +6,7 @@
 /*   By: absaid <absaid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:13:30 by absaid            #+#    #+#             */
-/*   Updated: 2022/11/27 09:20:12 by absaid           ###   ########.fr       */
+/*   Updated: 2022/12/13 08:52:45 by absaid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 #ifndef BUFFER_SIZE
-# define BUFFER_SIZE 1
+# define BUFFER_SIZE 30000
 # endif
  
 # include <unistd.h>

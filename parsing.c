@@ -6,18 +6,32 @@
 /*   By: absaid <absaid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 09:41:50 by absaid            #+#    #+#             */
-/*   Updated: 2022/12/12 02:28:54 by absaid           ###   ########.fr       */
+/*   Updated: 2022/12/13 10:59:14 by absaid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include <string.h>
 #include <errno.h>
-
-void	struct_init(t_pars *structo)
+int filelen(int fd)
 {
-	(structo)->head = NULL;
-	(structo)->initial = NULL;
+	char *line;
+	int len;
+
+	len = 0;
+	line = get_next_line(fd);
+	if(!line)
+		return (0);
+	len++;
+	while(line)
+	{
+		free(line);
+		line = get_next_line(fd);
+		len++;
+	}
+	free(line);
+	close(fd);
+	return(len);
 }
 
 int	*chartoint(char *str)
@@ -43,7 +57,7 @@ int	**line_to_cords(char *line, int *len)
 	char	**points;
 	int		**coords;
 	int		i;
-
+	
 	i = -1;
 	points = ft_split(line, 32);
 	while (points[*len])
@@ -55,49 +69,27 @@ int	**line_to_cords(char *line, int *len)
 	return (coords);
 }
 
-t_map	*parsing(int fd)
+int ***parsing(int fd, int size, int *len)
 {
 	t_pars	ptr;
-
-	struct_init(&ptr);
+	
+	ptr.i = 0;
+	*len = 0;
+	ptr.coords = ft_calloc(size, sizeof(int **));
 	ptr.line = get_next_line(fd);
 	if (!ptr.line)
 		return (NULL);
 	while (ptr.line)
 	{
 		ptr.len = 0;
-		ptr.coords = line_to_cords(ptr.line, &ptr.len);
-		if (!ptr.initial && ptr.head)
-			ptr.initial = ptr.head;
-		if (ptr.initial && ptr.initial->len != (size_t)ptr.len)
-			return (NULL);
-		map_push_back(&ptr.head, ptr.coords, ptr.len);
+		ptr.coords[ptr.i] = line_to_cords(ptr.line, &ptr.len);
+		if(!ptr.i && !*len)
+			*len = ptr.len;
+		if(*len && ptr.len != *len)
+			return(NULL);
 		free(ptr.line);
 		ptr.line = get_next_line(fd);
+		ptr.i++;
 	}
-	return (free(ptr.line), ptr.head);
-}
-
-int	***get_coords(t_map *lst)
-{
-	int		***coord;
-	t_map	*tmp;
-	int		i;
-	int		len;
-
-	if (!lst)
-		return (NULL);
-	tmp = lst;
-	len = ft_mapsize(tmp);
-	i = -1;
-	tmp = lst;
-	coord = ft_calloc(len + 1, sizeof(int *));
-	if (!coord)
-		return (NULL);
-	while (++i < len && tmp)
-	{
-		coord[i] = tmp->coord;
-		tmp = tmp->next;
-	}
-	return (ft_mapclear(&lst), coord);
+	return (free(ptr.line), ptr.coords);
 }
