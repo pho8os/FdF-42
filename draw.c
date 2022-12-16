@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: absaid <absaid@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/14 00:42:01 by absaid            #+#    #+#             */
+/*   Updated: 2022/12/16 09:33:02 by absaid           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 void draw_line_(t_data *data, t_point p1, t_point p2)
@@ -13,7 +25,9 @@ void draw_line_(t_data *data, t_point p1, t_point p2)
 	{
 		while( ++i <= fabs(dx))
 		{
-			my_mlx_pixel_put(data,p1.x, p1.y, p1.c -= 2);
+			if((p2.x <= 1500 && p2.x > 0) && (p1.x < 1500 && p1.x > 0)
+				&& (p2.y > 0 && p2.y <= 1000) && (p1.y > 0 && p1.y < 1000))
+					my_mlx_pixel_put(data,p1.x, p1.y, p1.c -= 2);
 			p1.y += dy / fabs(dx);
 			p1.x += dx / fabs(dx);
 		}
@@ -22,44 +36,89 @@ void draw_line_(t_data *data, t_point p1, t_point p2)
 	{
 		while( ++i <= fabs(dy))
 		{
-			my_mlx_pixel_put(data,p1.x, p1.y, p1.c += 2);
+			if((p2.x <= 1500 && p2.x >= 0) && (p1.x <= 1500 && p1.x >= 0)
+				&& (p2.y >= 0 && p2.y <= 1000) && (p1.y >= 0 && p1.y <= 1000))
+					my_mlx_pixel_put(data,p1.x, p1.y, p1.c -= 2);
 			p1.x += dx / fabs(dy);
 			p1.y += dy / fabs(dy);
 		}
 	}
 }
 
-void update(t_point *p, int y, int x, int flag)
+void update(t_point *p,t_data *ptr, t_point (*f)(t_point, t_data *ptr))
 {
 	int dw;
 	int dm;
 	int dist;
 
 	dw = sqrt(pow(1500, 2) + pow(1000, 2));
-	dm = sqrt(pow(x, 2) + pow(y, 2));
-	dist = ((dw * 50) / 100) / dm;
-	if (dist < 2)
+	dm = sqrt(pow(ptr->xup , 2) + pow(ptr->yup , 2));
+	dist = ((dw * 30) / 100) / (dm) ;
+	if (dist < 2 && !ptr->zoom)
 		dist = 2;
-	p->x *= dist;
-	p->y *= dist;
-	p->x -= (x * dist) / 2;
-	p->y -= (y * dist) / 2;
-	if(flag == 1)
-		*p = iso(*p);
-	p->x += 750;
-	p->y += 500;
+	p->x *= (dist + ptr->zoom);
+	p->y *= (dist + ptr->zoom);
+	p->x -= (ptr->xup * dist) / 2;
+	p->y -= (ptr->yup * dist) / 2;
+	*p = f(*p, ptr);
+
+	p->x += 750 -( ptr->zoom * (dist / 4));
+	p->y += 500 - ( ptr->zoom * (dist / 4));
 }
 
-int key_press(int key, t_data *data, int ***coord)
+int key_press(int key, t_data *data)
 {
-	(void)data;
-	(void)coord;
 	if(key == 53)
 		exit(0);
+	else if(key == 116 )
+		data->rz += 0.05;
+	else if(key == 121 )
+		data->rz -= 0.05;
+	else if(key == 15 )
+	{
+		fdf(data->coord,data,iso);
+		data->sx = 0;
+		data->sy = 0;
+		data->zoom = 0;
+	}
+	else if(key == 34 )
+	{
+		data->rz = 0;	
+		data->rx = 0;	
+		data->ry = 0;
+		data->sx = 0;
+		data->sy = 0;
+		data->zoom = 0;
+			
+	}
+	else if(key == 126 )
+		data->rx += 0.05;
+	else if(key == 125 )
+		data->rx -= 0.05;
+	else if(key == 124 )
+		data->ry += 0.05;
+	else if(key == 123 )
+		data->ry -= 0.05;
+	else if(key == 1 )
+		data->sy += 10;
+	else if(key == 13 )
+		data->sy -= 10;
+	else if(key == 13 )
+		data->sy -= 10;
+	else if(key == 0 )
+		data->sx -= 10;
+	else if(key == 2 )
+		data->sx += 10;
+	else if(key == 78 )
+		data->zoom -= 10;
+	else if(key == 69 )
+		data->zoom += 10;
+	mlx_destroy_image(data->mlx,data->img);
+	data->img = mlx_new_image(data->mlx,1500,1000);
+	data->addr = mlx_get_data_addr(data->img, &data->bpp, &data->ln, &data->en);
+	fdf(data->coord,data,rot);
+	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	
-	// if(key == 116 )
-	// 	fdf(coord,data);
-	// printf("%d\n",key);
 	return 0;
 }
 int ft_exit(t_data *data)
@@ -67,19 +126,13 @@ int ft_exit(t_data *data)
 	(void)data;
 	exit(0);
 }
-int key_release(int key, t_data *data)
-{
-	(void)data;
-	(void)key;
-	// printf("%d\n",key);
-	return 0;
-}
 
 int main(int ac, char **av)
 {
 
 	t_data data;
 
+	data.zoom = 1;
 	data.mlx = mlx_init();
 	data.w = 1500;
 	data.h = 1000;
@@ -90,32 +143,29 @@ int main(int ac, char **av)
 		int fd = open(filename, O_RDONLY);
 		if (fd < 0)
 			return (printf("wrong map"));
-		int len = filelen(fd);
+		data.yup = filelen(fd);
 		fd = open(filename, O_RDONLY);
-		int x;
-		int ***coord = parsing(fd, len, &x);
-		if(!coord)
+		data.coord = parsing(fd, data.yup, &data.xup);
+		if(!data.coord)
 			return (printf("wrong map"));
-		
+
+		data.sx = 0;
+		data.sy = 0;
 		data.img = mlx_new_image(data.mlx,1500,1000);
 		data.addr = mlx_get_data_addr(data.img, &data.bpp, &data.ln, &data.en);
-		fdf(coord,&data, x, len);
-		// t_point p1,p2;
-		// p1.x = 10;
-		// p1.y = 10;
-		// p1.c = 0xffffff;
-		// p2.x = 100;
-		// p2.y = 100;
-		// p2.c = 0xffffff;
-		
-		// draw_line_(&data,p1,p2);
+	
+		fdf(data.coord,&data,iso);
+
 		mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
+		data.des = 1;
+
+		mlx_key_hook(data.win, key_press, &data);
+
+		mlx_hook(data.win, 17, 0, ft_exit, &data);
+
+
+		mlx_loop(data.mlx);
 	}
-	mlx_hook(data.win, 2, 0, key_press, &data);
-	mlx_hook(data.win, 3, 0, key_release, &data);
-	mlx_hook(data.win, 17, 0, ft_exit, &data);
-	// mlx_mouse_hook(data.win, 17, 0, mouse, &data);
-	mlx_loop(data.mlx);
 }
 // 116 page up
 // 121 page down

@@ -6,7 +6,7 @@
 /*   By: absaid <absaid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 09:41:50 by absaid            #+#    #+#             */
-/*   Updated: 2022/12/13 10:59:14 by absaid           ###   ########.fr       */
+/*   Updated: 2022/12/14 01:30:54 by absaid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int ***parsing(int fd, int size, int *len)
 	
 	ptr.i = 0;
 	*len = 0;
-	ptr.coords = ft_calloc(size, sizeof(int **));
+	ptr.coords = ft_calloc(size + 1, sizeof(int **));
 	ptr.line = get_next_line(fd);
 	if (!ptr.line)
 		return (NULL);

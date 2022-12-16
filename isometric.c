@@ -1,11 +1,11 @@
 #include"fdf.h"
 
-t_point	iso(t_point p)
+t_point	iso(t_point p, t_data *ptr)
 {
-	t_point p1;
-
-	p1 = p;
-    p1.x = (p.x - p.y) * cos(0.523599);
-    p1.y = -p.z + (p.x + p.y) * sin(0.523599);
-	return(p1);
+	
+	ptr->rz = 0.523599;
+	ptr->rx = 0.523599;
+	ptr->ry = -0.523599;
+	p = rot(p,ptr);
+	 return(p);
 }
