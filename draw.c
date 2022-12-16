@@ -6,7 +6,7 @@
 /*   By: absaid <absaid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 00:42:01 by absaid            #+#    #+#             */
-/*   Updated: 2022/12/16 10:55:49 by absaid           ###   ########.fr       */
+/*   Updated: 2022/12/16 11:55:42 by absaid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void update(t_point *p,t_data *ptr, t_point (*f)(t_point, t_data *ptr))
 
 	dw = sqrt(pow(1500, 2) + pow(1000, 2));
 	dm = sqrt(pow(ptr->xup , 2) + pow(ptr->yup , 2));
-	dist = ((dw * 30) / 100) / (dm) ;
+	dist = ((dw * 50) / 100) / (dm) ;
 	if (dist < 2 && !ptr->zoom)
 		dist = 2;
 	p->x *= (dist + ptr->zoom);
@@ -111,9 +111,9 @@ int key_press(int key, t_data *data)
 	else if(key == 2 )
 		data->sx += 10;
 	else if(key == 78 )
-		data->zoom -= 10;
+		data->zoom -= 1;
 	else if(key == 69 )
-		data->nz += 10;
+		data->zoom += 1;
 	
 	mlx_destroy_image(data->mlx,data->img);
 	data->img = mlx_new_image(data->mlx,1500,1000);
@@ -134,7 +134,7 @@ int main(int ac, char **av)
 
 	t_data data;
 
-	data.zoom = 1;
+	data.zoom = 0;
 	data.mlx = mlx_init();
 	data.w = 1500;
 	data.h = 1000;
