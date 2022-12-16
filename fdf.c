@@ -6,7 +6,7 @@
 /*   By: absaid <absaid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 00:57:33 by absaid            #+#    #+#             */
-/*   Updated: 2022/12/14 02:51:44 by absaid           ###   ########.fr       */
+/*   Updated: 2022/12/16 10:47:31 by absaid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@ void init_ptr(t_fdf *ptr)
 	ptr->p2  = malloc(sizeof(t_point));
 	ptr->p3  = malloc(sizeof(t_point));
 }
-void init_coord(t_point *p, int x, int y, int **candz)
+void init_coord(t_point *p, int x, int y, int **candz, t_data *ptr)
 {
+	(void)ptr;
 	p->x = x;
 	p->y = y;
 	if(candz && candz[x])
 	{
-		p->c = candz[x][1];
+		p->c = candz[x][1] - (100 * ptr->nz) ;
 		p->z = candz[x][0];
 	}
-	
 }
 
 void fdf(int ***coord, t_data *data, t_point (*f)(t_point, t_data *ptr))
@@ -41,9 +41,9 @@ void fdf(int ***coord, t_data *data, t_point (*f)(t_point, t_data *ptr))
 		ptr.x = 0;
 		while (coord[ptr.y][ptr.x])
 		{
-			init_coord(ptr.p1, ptr.x, ptr.y, coord[ptr.y]);
-			init_coord(ptr.p2, (ptr.x + 1), ptr.y, coord[ptr.y]);
-			init_coord(ptr.p3, ptr.x, (ptr.y + 1), coord[(ptr.y + 1)]);
+			init_coord(ptr.p1, ptr.x, ptr.y, coord[ptr.y],data);
+			init_coord(ptr.p2, (ptr.x + 1), ptr.y, coord[ptr.y],data);
+			init_coord(ptr.p3, ptr.x, (ptr.y + 1), coord[(ptr.y + 1)],data);
 			// printf("--%p--\n",coord[ptr.y][ptr.x]);
 			update(ptr.p1, data,f);
 			update(ptr.p2, data,f);

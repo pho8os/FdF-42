@@ -6,7 +6,7 @@
 /*   By: absaid <absaid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 10:38:07 by absaid            #+#    #+#             */
-/*   Updated: 2022/11/29 13:01:44 by absaid           ###   ########.fr       */
+/*   Updated: 2022/12/16 10:54:19 by absaid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@ int hextodec(char *str)
 
 // int main()
 // {
-// 	printf("%d",hextodec("0Xfffffff"));
+// 	printf("%d",hextodec("0Xffffff"));
 // }

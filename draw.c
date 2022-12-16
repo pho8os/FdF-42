@@ -6,7 +6,7 @@
 /*   By: absaid <absaid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 00:42:01 by absaid            #+#    #+#             */
-/*   Updated: 2022/12/16 09:33:02 by absaid           ###   ########.fr       */
+/*   Updated: 2022/12/16 10:55:49 by absaid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void draw_line_(t_data *data, t_point p1, t_point p2)
 		{
 			if((p2.x <= 1500 && p2.x > 0) && (p1.x < 1500 && p1.x > 0)
 				&& (p2.y > 0 && p2.y <= 1000) && (p1.y > 0 && p1.y < 1000))
-					my_mlx_pixel_put(data,p1.x, p1.y, p1.c -= 2);
+					my_mlx_pixel_put(data,p1.x, p1.y, p1.c);
 			p1.y += dy / fabs(dx);
 			p1.x += dx / fabs(dx);
 		}
@@ -38,7 +38,7 @@ void draw_line_(t_data *data, t_point p1, t_point p2)
 		{
 			if((p2.x <= 1500 && p2.x >= 0) && (p1.x <= 1500 && p1.x >= 0)
 				&& (p2.y >= 0 && p2.y <= 1000) && (p1.y >= 0 && p1.y <= 1000))
-					my_mlx_pixel_put(data,p1.x, p1.y, p1.c -= 2);
+					my_mlx_pixel_put(data,p1.x, p1.y, p1.c);
 			p1.x += dx / fabs(dy);
 			p1.y += dy / fabs(dy);
 		}
@@ -60,10 +60,11 @@ void update(t_point *p,t_data *ptr, t_point (*f)(t_point, t_data *ptr))
 	p->y *= (dist + ptr->zoom);
 	p->x -= (ptr->xup * dist) / 2;
 	p->y -= (ptr->yup * dist) / 2;
+	// p->z += ptr->nz;
 	*p = f(*p, ptr);
 
-	p->x += 750 -( ptr->zoom * (dist / 4));
-	p->y += 500 - ( ptr->zoom * (dist / 4));
+	p->x += 750 ;
+	p->y += 500 ;
 }
 
 int key_press(int key, t_data *data)
@@ -112,7 +113,8 @@ int key_press(int key, t_data *data)
 	else if(key == 78 )
 		data->zoom -= 10;
 	else if(key == 69 )
-		data->zoom += 10;
+		data->nz += 10;
+	
 	mlx_destroy_image(data->mlx,data->img);
 	data->img = mlx_new_image(data->mlx,1500,1000);
 	data->addr = mlx_get_data_addr(data->img, &data->bpp, &data->ln, &data->en);
@@ -157,7 +159,6 @@ int main(int ac, char **av)
 		fdf(data.coord,&data,iso);
 
 		mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
-		data.des = 1;
 
 		mlx_key_hook(data.win, key_press, &data);
 
