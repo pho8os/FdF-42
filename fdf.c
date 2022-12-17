@@ -6,7 +6,7 @@
 /*   By: absaid <absaid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 00:57:33 by absaid            #+#    #+#             */
-/*   Updated: 2022/12/17 03:02:14 by absaid           ###   ########.fr       */
+/*   Updated: 2022/12/17 08:25:22 by absaid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void init_coord(t_point *p, int x, int y, int **candz, t_data *ptr)
 		p->z = candz[x][0];
 	}
 	if(p->z)
-		p->z += ptr->nz;
+		p->z *= ptr->nz;
 }
 
 void fdf(int ***coord, t_data *data, t_point (*f)(t_point, t_data *ptr))

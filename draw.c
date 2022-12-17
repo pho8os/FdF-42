@@ -6,7 +6,7 @@
 /*   By: absaid <absaid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 00:42:01 by absaid            #+#    #+#             */
-/*   Updated: 2022/12/17 02:57:11 by absaid           ###   ########.fr       */
+/*   Updated: 2022/12/17 08:30:22 by absaid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void draw_line_(t_data *data, t_point p1, t_point p2)
 	{
 		while( ++i <= fabs(dx))
 		{
-			if((p2.x <= 1500 && p2.x > 0) && (p1.x < 1500 && p1.x > 0)
-				&& (p2.y > 0 && p2.y <= 1000) && (p1.y > 0 && p1.y < 1000))
+			if((p2.x < 1500 && p2.x > 0) && (p1.x < 1500 && p1.x > 0)
+				&& (p2.y > 0 && p2.y < 1000) && (p1.y > 0 && p1.y < 1000))
 					my_mlx_pixel_put(data,p1.x, p1.y, p1.c);
 			p1.y += dy / fabs(dx);
 			p1.x += dx / fabs(dx);
@@ -36,8 +36,8 @@ void draw_line_(t_data *data, t_point p1, t_point p2)
 	{
 		while( ++i <= fabs(dy))
 		{
-			if((p2.x <= 1500 && p2.x >= 0) && (p1.x <= 1500 && p1.x >= 0)
-				&& (p2.y >= 0 && p2.y <= 1000) && (p1.y >= 0 && p1.y <= 1000))
+			if((p2.x < 1500 && p2.x > 0) && (p1.x < 1500 && p1.x > 0)
+				&& (p2.y > 0 && p2.y < 1000) && (p1.y > 0 && p1.y < 1000))
 					my_mlx_pixel_put(data,p1.x, p1.y, p1.c);
 			p1.x += dx / fabs(dy);
 			p1.y += dy / fabs(dy);
@@ -60,9 +60,7 @@ void update(t_point *p,t_data *ptr, t_point (*f)(t_point, t_data *ptr))
 	p->y *= (dist + ptr->zoom);
 	p->x -= (ptr->xup * dist) / 2;
 	p->y -= (ptr->yup * dist) / 2;
-	// p->z += ptr->nz;
 	*p = f(*p, ptr);
-
 	p->x += 750 ;
 	p->y += 500 ;
 }
@@ -101,26 +99,23 @@ int key_press(int key, t_data *data)
 	else if(key == 123 )
 		data->ry -= 0.05;
 	else if(key == 1 )
-		data->sy += 10;
+		data->sy += 50;
 	else if(key == 13 )
-		data->sy -= 10;
-	else if(key == 13 )
-		data->sy -= 10;
+		data->sy -= 50;
 	else if(key == 0 )
-		data->sx -= 10;
+		data->sx -= 50;
 	else if(key == 2 )
-		data->sx += 10;
+		data->sx += 50;
 	else if(key == 78 )
 		data->zoom -= 1;
 	else if(key == 69 )
 		data->zoom += 1;
 	else if(key == 6 )
-		data->nz += 10;
+		data->nz += 1;
 	else if(key == 7)
-		data->nz -= 10;
+		data->nz -= 1;
 	else if(key == 8)
 		data->nc += 1;
-	// printf("%d\n",key);
 	mlx_destroy_image(data->mlx,data->img);
 	data->img = mlx_new_image(data->mlx,1500,1000);
 	data->addr = mlx_get_data_addr(data->img, &data->bpp, &data->ln, &data->en);
@@ -159,7 +154,7 @@ int main(int ac, char **av)
 
 		data.sx = 0;
 		data.sy = 0;
-		data.nz = 0;
+		data.nz = 1;
 		data.nc = 0;
 		data.img = mlx_new_image(data.mlx,1500,1000);
 		data.addr = mlx_get_data_addr(data.img, &data.bpp, &data.ln, &data.en);
@@ -176,17 +171,3 @@ int main(int ac, char **av)
 		mlx_loop(data.mlx);
 	}
 }
-// 116 page up
-// 121 page down
-// 126 up
-// 125 down
-// 124 right
-// 123 left
-// 78 minus
-// 69 plus
-// 13 scale up
-// 0 scale left
-// 1 scale down 
-// 2 scale right
-// 4 zoom in
-// 5 zoom out
