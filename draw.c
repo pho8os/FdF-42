@@ -6,7 +6,7 @@
 /*   By: absaid <absaid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 00:42:01 by absaid            #+#    #+#             */
-/*   Updated: 2022/12/16 11:55:42 by absaid           ###   ########.fr       */
+/*   Updated: 2022/12/17 02:57:11 by absaid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,13 @@ int key_press(int key, t_data *data)
 		data->zoom -= 1;
 	else if(key == 69 )
 		data->zoom += 1;
-	
+	else if(key == 6 )
+		data->nz += 10;
+	else if(key == 7)
+		data->nz -= 10;
+	else if(key == 8)
+		data->nc += 1;
+	// printf("%d\n",key);
 	mlx_destroy_image(data->mlx,data->img);
 	data->img = mlx_new_image(data->mlx,1500,1000);
 	data->addr = mlx_get_data_addr(data->img, &data->bpp, &data->ln, &data->en);
@@ -153,6 +159,8 @@ int main(int ac, char **av)
 
 		data.sx = 0;
 		data.sy = 0;
+		data.nz = 0;
+		data.nc = 0;
 		data.img = mlx_new_image(data.mlx,1500,1000);
 		data.addr = mlx_get_data_addr(data.img, &data.bpp, &data.ln, &data.en);
 	

@@ -6,7 +6,7 @@
 /*   By: absaid <absaid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 08:34:16 by absaid            #+#    #+#             */
-/*   Updated: 2022/12/16 10:25:53 by absaid           ###   ########.fr       */
+/*   Updated: 2022/12/17 01:54:39 by absaid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_data
 	int yup;
 	int ***coord;
 	int nz;
+	int nc;
 } t_data;
 
 typedef struct s_pars

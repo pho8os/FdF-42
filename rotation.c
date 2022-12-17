@@ -6,7 +6,7 @@
 /*   By: absaid <absaid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:08:13 by absaid            #+#    #+#             */
-/*   Updated: 2022/12/16 08:06:35 by absaid           ###   ########.fr       */
+/*   Updated: 2022/12/16 23:53:22 by absaid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,27 +32,3 @@ t_point rot(t_point p, t_data *ptr)
 	p.x = p1.x + ptr->sx;
 	return(p);
 }
-
-// t_point rot_y(t_point p, t_data *ptr)
-// {
-// 	t_point p2;
-	
-// 	p2 = p;
-// 	p2.x = p.x * cos(ptr->ry) + p.z * sin(ptr->ry);
-// 	p2.y = p.y;
-// 	p2.z = p.x * -sin(ptr->ry) + p.z * cos(ptr->ry);
-// 	return(p2);
-// }
-
-// t_point rot_z(t_point p, t_data *ptr)
-// {
-	
-// 	// if(ptr->rx)
-// 	// 	p = rot_x(p,ptr);
-// 	t_point p2;
-// 	p2 = p;
-// 	p2.x = p.x * cos(ptr->rz) + p.y * -sin(ptr->rz);
-// 	p2.y = p.x * sin(ptr->rz) + p.y * cos(ptr->rz);
-// 	p2.z = p.z;
-// 	return(p2);
-// }
