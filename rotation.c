@@ -6,15 +6,15 @@
 /*   By: absaid <absaid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:08:13 by absaid            #+#    #+#             */
-/*   Updated: 2022/12/16 23:53:22 by absaid           ###   ########.fr       */
+/*   Updated: 2022/12/18 09:17:29 by absaid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"fdf.h"
 
-t_point rot(t_point p, t_data *ptr)
+t_point	rot(t_point p, t_data *ptr)
 {
-	t_point p1;
+	t_point	p1;
 
 	p1 = p;
 	p1.x = p.x;
@@ -30,5 +30,5 @@ t_point rot(t_point p, t_data *ptr)
 	p1.z = p.z;
 	p.y = p1.y + ptr->sy;
 	p.x = p1.x + ptr->sx;
-	return(p);
+	return (p);
 }

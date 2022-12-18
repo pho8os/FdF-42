@@ -2,27 +2,23 @@ NAME = fdf
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -Ofast
 
-SRCS = get_next_line.c get_next_line.utils.c fdf.c draw.c hextodec.c my_putpixel.c rotation.c parsing.c
-
-BONUS = 
+SRCS = get_next_line.c get_next_line_utils.c fdf.c draw.c hextodec.c my_putpixel.c rotation.c parsing.c main.c isometric.c 
 
 
-BONUSOBJS = $(BONUS:.c=.o)
-
-OBJS = $(patsubst %.c, %.o, $(SRCS))
+OBJS = $(SRCS:.c=.o)
 
 all:$(NAME)
 
 lib-ft/libft.a:
 	make bonus -C lib-ft
 
-%.o:%.c fdf.h gnl/get_next_line.h lib-ft/libft.h 
+%.o:%.c fdf.h get_next_line.h lib-ft/libft.h 
 	$(CC) $(CFLAGS) -c $<
 
 $(NAME):$(OBJS) lib-ft/libft.a
-	$(CC) $(OBJS) $(CFLAGS) -lmlx -framework OpenGL -framework AppKit -o $(NAME) lib-ft/libft.a
+	$(CC) $(CFLAGS) $(OBJS) -lmlx -framework OpenGL -framework AppKit lib-ft/libft.a -o $(NAME) lib-ft/libft.a
 
 clean:
 	rm -f $(OBJS) $(BONUSOBJS)

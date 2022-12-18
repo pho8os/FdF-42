@@ -6,24 +6,25 @@
 /*   By: absaid <absaid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 09:41:50 by absaid            #+#    #+#             */
-/*   Updated: 2022/12/14 01:30:54 by absaid           ###   ########.fr       */
+/*   Updated: 2022/12/18 09:21:40 by absaid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include <string.h>
 #include <errno.h>
-int filelen(int fd)
+
+int	filelen(int fd)
 {
-	char *line;
-	int len;
+	char	*line;
+	int		len;
 
 	len = 0;
 	line = get_next_line(fd);
-	if(!line)
+	if (!line)
 		return (0);
 	len++;
-	while(line)
+	while (line)
 	{
 		free(line);
 		line = get_next_line(fd);
@@ -31,7 +32,23 @@ int filelen(int fd)
 	}
 	free(line);
 	close(fd);
-	return(len);
+	return (len);
+}
+
+void	free_all(char *str, int ***tab)
+{
+	int	i;
+	int	j;
+
+	free(str);
+	i = -1;
+	while (tab[++i])
+	{
+		j = -1;
+		while (tab[i][++j])
+			free(tab[i][j]);
+	}
+	free(tab);
 }
 
 int	*chartoint(char *str)
@@ -46,7 +63,7 @@ int	*chartoint(char *str)
 	if (info[1])
 	{
 		ret[1] = hextodec(info[1]);
-		if (ret[1] == 0)
+		if (ret[1] == 0 || ret[1] > 0xffffff)
 			ret[1] = 0xffffff;
 	}
 	return (free(info[0]), free(info[1]), free(info), free(str), ret);
@@ -57,7 +74,7 @@ int	**line_to_cords(char *line, int *len)
 	char	**points;
 	int		**coords;
 	int		i;
-	
+
 	i = -1;
 	points = ft_split(line, 32);
 	while (points[*len])
@@ -69,10 +86,10 @@ int	**line_to_cords(char *line, int *len)
 	return (coords);
 }
 
-int ***parsing(int fd, int size, int *len)
+int	***parsing(int fd, int size, int *len)
 {
 	t_pars	ptr;
-	
+
 	ptr.i = 0;
 	*len = 0;
 	ptr.coords = ft_calloc(size + 1, sizeof(int **));
@@ -83,10 +100,10 @@ int ***parsing(int fd, int size, int *len)
 	{
 		ptr.len = 0;
 		ptr.coords[ptr.i] = line_to_cords(ptr.line, &ptr.len);
-		if(!ptr.i && !*len)
+		if (!ptr.i && !*len)
 			*len = ptr.len;
-		if(*len && ptr.len != *len)
-			return(NULL);
+		if (*len && ptr.len != *len)
+			return (free_all(ptr.line, ptr.coords), NULL);
 		free(ptr.line);
 		ptr.line = get_next_line(fd);
 		ptr.i++;

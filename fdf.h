@@ -6,7 +6,7 @@
 /*   By: absaid <absaid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 08:34:16 by absaid            #+#    #+#             */
-/*   Updated: 2022/12/17 07:50:05 by absaid           ###   ########.fr       */
+/*   Updated: 2022/12/18 10:00:09 by absaid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_data
 	int w;
 	int h;
 	void  *img;
-	char	*addr;
+	char	*add;
 	int		bpp;
 	int		ln;
 	int		en;
@@ -50,6 +50,8 @@ typedef struct s_data
 	int ***coord;
 	int nz;
 	int nc;
+	double dx;
+	double dy;
 } t_data;
 
 typedef struct s_pars
@@ -78,24 +80,13 @@ typedef struct s_fdf
 	t_point *p3;
 }	t_fdf;
 
-// typedef struct s_draw
-// {
-// 	double rx;
-// 	double ry;
-// 	double rz;
-// 	int sx;
-// 	int sy;
-// 	int zoom;
-	
-// } t_draw;
+
 
 int filelen(int fd);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void update(t_point *p,t_data *ptr, t_point (*f)(t_point, t_data *));
 void fdf(int ***coord, t_data *data, t_point (*f)(t_point, t_data *));
 t_point rot(t_point p, t_data *ptr);
-// t_point rot_y(t_point p, t_data *ptr);
-// t_point rot_z(t_point p, t_data *ptr);
 t_point	iso(t_point p, t_data *ptr);
 int ***parsing(int fd, int size, int *len);
 void draw_line_(t_data *data, t_point p1, t_point p2);

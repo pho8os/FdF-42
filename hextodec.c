@@ -6,7 +6,7 @@
 /*   By: absaid <absaid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 10:38:07 by absaid            #+#    #+#             */
-/*   Updated: 2022/12/16 10:54:19 by absaid           ###   ########.fr       */
+/*   Updated: 2022/12/18 09:21:50 by absaid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int hextodec(char *str)
 	int len;
 
 	if(*str == '0' && (*(str + 1) == 'x' || *(str + 1) == 'X'))
-		str++;	
+		str += 2;	
 	len = ft_strlen(str);
 	ret = 0;
 	hex = 1;
@@ -38,5 +38,5 @@ int hextodec(char *str)
 
 // int main()
 // {
-// 	printf("%d",hextodec("0Xffffff"));
+// 	printf("%d",hextodec("0Xffffff0"));
 // }
