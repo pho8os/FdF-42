@@ -6,7 +6,7 @@
 /*   By: absaid <absaid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 00:42:01 by absaid            #+#    #+#             */
-/*   Updated: 2022/12/18 10:15:15 by absaid           ###   ########.fr       */
+/*   Updated: 2022/12/18 12:13:33 by absaid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int main(int ac, char **av)
 		data.add = mlx_get_data_addr(data.img, &data.bpp, &data.ln, &data.en);
 		fdf(data.coord, &data, iso);
 		mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
-		mlx_key_hook(data.win, keypress2, &data);
+		mlx_hook(data.win, 2, 1L<<0, keypress2, &data);
 		mlx_hook(data.win, 17, 0, ft_exit, &data);
 		mlx_loop(data.mlx);
 	}
