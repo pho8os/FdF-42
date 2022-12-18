@@ -6,17 +6,17 @@
 /*   By: absaid <absaid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:13:30 by absaid            #+#    #+#             */
-/*   Updated: 2022/12/13 08:52:45 by absaid           ###   ########.fr       */
+/*   Updated: 2022/12/18 14:59:15 by absaid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 30000
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 30000
 # endif
- 
+
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>

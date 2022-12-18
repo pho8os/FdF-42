@@ -6,7 +6,7 @@
 /*   By: absaid <absaid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:20:13 by absaid            #+#    #+#             */
-/*   Updated: 2022/11/27 09:19:58 by absaid           ###   ########.fr       */
+/*   Updated: 2022/12/18 14:56:48 by absaid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	*ft_strjoin_gnl(const char *s1, const char *s2)
 	else
 		str1 = ft_strdup_gnl(s1);
 	str = malloc(sizeof (char) * ((ft_strlen_gnl(str1))
-		+ ft_strlen_gnl(s2)) + 1);
+				+ ft_strlen_gnl(s2)) + 1);
 	if (!str)
 		return (NULL);
 	while (str1[++i])

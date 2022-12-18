@@ -6,24 +6,24 @@
 /*   By: absaid <absaid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 10:38:07 by absaid            #+#    #+#             */
-/*   Updated: 2022/12/18 09:21:50 by absaid           ###   ########.fr       */
+/*   Updated: 2022/12/18 14:46:31 by absaid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int hextodec(char *str)
+int	hextodec(char *str)
 {
-	int ret;
-	int hex;
-	int len;
+	int	ret;
+	int	hex;
+	int	len;
 
-	if(*str == '0' && (*(str + 1) == 'x' || *(str + 1) == 'X'))
-		str += 2;	
+	if (*str == '0' && (*(str + 1) == 'x' || *(str + 1) == 'X'))
+		str += 2;
 	len = ft_strlen(str);
 	ret = 0;
 	hex = 1;
-	while(len-- && len <= 6)
+	while (len-- && len <= 6)
 	{
 		if (ft_isdigit(str[len]))
 			ret += (str[len] - 48) * hex;
@@ -33,10 +33,5 @@ int hextodec(char *str)
 			ret += (str[len] - 87) * hex;
 		hex *= 16;
 	}
-	return(ret);
+	return (ret);
 }
-
-// int main()
-// {
-// 	printf("%d",hextodec("0Xffffff0"));
-// }
